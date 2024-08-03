@@ -1,0 +1,149 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-grid style="background-color: rgb(78, 172, 253);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2" [routerLink]="['/home']">
+          <img src="./assets/images/backArrow.png" class="icon">
+        </ion-col>
+        <ion-col size="10">
+          <ion-title class="ion-text-left bold-text">Historial</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <div class="header-image-wrapper">
+    <img src="./assets/images/blueImg.png" class="header-image">
+    <div class="header-text small-header-text">UTN SUBD</div>
+    <div class="header-bottom-text">
+      <div class="left-text" *ngIf="user == null">
+        <p>error.com</p>
+      </div>
+      <div class="left-text" *ngIf="user != null">
+        <p class="highlighted-text">{{ user.userEmail }}</p>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-button expand="block" size="medium"
+    (click)="refreshUserData()">
+    Actualizar
+  </ion-button>
+
+  <!-- OPCION 2 -->
+  <ion-grid *ngIf="specificTravel == null">
+    <ion-row class="history-header" style="margin-bottom: -15px;">
+      <ion-col class="small-col">
+        <p class="bold-text larger-text">Línea</p>
+      </ion-col>
+      <ion-col class="large-col">
+        <p class="bold-text larger-text">Fecha</p>
+      </ion-col>
+    </ion-row>
+    <div class="separator"></div>
+    <ion-row 
+      style="margin-top: -10px; margin-bottom: -10px;"
+      *ngFor="let travel of travelList"
+      >
+      <ion-col class="small-col" (click)="showSpecificTravel(travel)">
+        <p class="bold-text" style="text-align: center;">{{ travel.routeNumber }}</p>
+      </ion-col>
+      <ion-col class="large-col" (click)="showSpecificTravel(travel)">
+        <p class="normal-text">{{ travel.travelDate }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="history-header" style="margin-bottom: -15px;">
+      <ion-col (click)="pagination(false)" style="display: contents;">
+        <p class="bold-text larger-text">&nbsp;&nbsp;&lt;</p>
+      </ion-col>
+      <ion-col style="display: contents;">
+        <p class="bold-text larger-text">{{ travelFrom }} / {{ travelTo }}</p>
+      </ion-col>
+      <ion-col (click)="pagination(true)" style="display: contents;">
+        <p class="bold-text larger-text">&gt;&nbsp;&nbsp;</p>
+      </ion-col>
+    </ion-row>
+    <div class="separator"></div>
+  </ion-grid>
+
+  <!-- show specific travel -->
+  <ion-grid *ngIf="specificTravel != null">
+
+    <ion-row (click)="specificTravel = null">
+      <h5 style="font-weight: bold;"> &lt; Historial completo</h5>
+    </ion-row>
+    
+    <div class="separator"></div>
+
+    <ion-row class="special-ion-row">
+      <ion-col size="3">
+        <p class="bold-text larger-text">Linea:</p>
+        <p class="small-text" style="text-align: center;">{{ specificTravel.routeNumber }}</p>
+      </ion-col>
+      <ion-col size="9" *ngIf="!specificTravel.payerEmail || specificTravel.payerEmail == undefined">
+        <p class="bold-text larger-text">Pagado por:</p>
+        <p class="small-text" style="text-align: center;">{{ specificTravel.userEmail }}</p>
+      </ion-col>
+      <ion-col size="9" *ngIf="specificTravel.payerEmail != undefined">
+        <p class="bold-text larger-text">Pagado por:</p>
+        <p class="small-text" style="text-align: center;">{{ specificTravel.payerEmail }}</p>
+      </ion-col>
+    </ion-row>
+    <div class="separator"></div>
+
+    <ion-row class="special-ion-row">
+      <ion-col>
+        <p class="bold-text larger-text-2" style="align-items: start;">Fecha de ascenso:</p>
+        <p class="small-text">{{ specificTravel.travelDate }}</p>
+        <p class="bold-text larger-text-2">Patente del vehiculo:</p>
+        <p class="small-text">{{ specificTravel.licensePlate }}</p>
+        <p class="bold-text larger-text-2">Seccion:</p>
+        <p class="small-text">{{ specificTravel.routeOption }}</p>
+        <p class="bold-text larger-text-2">Costo:</p>
+        <p class="small-text">{{ specificTravel.cost }}</p>
+        <p class="bold-text larger-text-2">Pago:</p>
+        <p class="small-text" *ngIf="specificTravel.onlinePayment == true">Saldo</p>
+        <p class="small-text" *ngIf="specificTravel.onlinePayment == false">Efectivo</p>
+        <p class="bold-text larger-text-2">Subio en:</p>
+        <p class="small-text">{{ specificTravel.busStopIn }}</p>
+
+        <p class="bold-text larger-text-2"
+          *ngIf="specificTravel.busStopOut != undefined">Bajo en:</p>
+        <p class="small-text"
+          *ngIf="specificTravel.busStopOut != undefined">{{ specificTravel.busStopOut }}</p>
+        <p class="bold-text larger-text-2"
+          *ngIf="specificTravel.busStopOut != undefined">Fecha de descenso:</p>
+        <p class="small-text"
+          *ngIf="specificTravel.busStopOut != undefined">{{ specificTravel.outDate }}</p>
+
+        <p class="bold-text larger-text-2"
+          *ngIf="specificTravel.guestEmail != undefined">Invitado:</p>
+        <p class="small-text"
+          *ngIf="specificTravel.guestEmail != undefined">{{ specificTravel.guestEmail }}</p>
+        <p class="bold-text larger-text-2"
+          *ngIf="specificTravel.guestDni != undefined">Dni del invitado:</p>
+        <p class="small-text"
+          *ngIf="specificTravel.guestDni != undefined">{{ specificTravel.guestDni }}</p>
+      </ion-col>
+    </ion-row>
+    <div class="separator"></div>
+
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid style="background-color: rgb(201, 230, 255);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2" [routerLink]="['/home']">
+          <img src="./assets/images/backArrow.png" class="icon">
+        </ion-col>
+        <ion-col size="10" [routerLink]="['/home/get-out']">
+          <p class="bold-text">Bajar</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

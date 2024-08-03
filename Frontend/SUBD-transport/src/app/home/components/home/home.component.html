@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+    <ion-grid style="background-color: rgb(78, 172, 253);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2" [routerLink]="['/login/config']">
+          <img src="./assets/images/backArrow.png" class="icon">
+        </ion-col>
+        <ion-col size="10">
+          <ion-title class="ion-text-center" style="font-weight: bold; color: black;">SUBD-Transport</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <!-- <ion-toolbar class="custom-toolbar">
+    <ion-title class="ion-text-center" style="font-weight: bold; color: #000;"> SUBD-Transport </ion-title>
+  </ion-toolbar> -->
+  <ion-toolbar class="custom-toolbar-1">
+    <div class="header-image-wrapper">
+      <img src="./assets/images/blueImg.png" class="header-image">
+      <div class="header-text">UTN SUBD</div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p
+  *ngIf="transport == null"
+  (click)="loadTestTransport()" >cargar transporte</p>
+  <ion-grid style="margin-bottom: -35px;">
+
+    <ion-item *ngIf="transport != null">
+      <ion-label>Pago online</ion-label>
+      <ion-toggle [checked]="true" (ionChange)="onToggleChange($event)"></ion-toggle>
+    </ion-item>
+
+    <ion-item *ngIf="transport != null">
+      <ion-label>Seccion</ion-label>
+      <ion-select
+        (ionChange)="onOptionChange($event)"  
+        placeholder="seccion"
+        >
+        <ion-select-option
+          *ngFor="let option of transport.routeOptions"
+          [value]="option.name"
+          >
+          {{ option.name }} | ${{ option.cost }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <div class="separator"></div>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="payment-title">
+        <h1>Elija método de pago:</h1>
+      </ion-col>
+    </ion-row>
+
+    <div class="separator"></div>
+
+    <ion-row [routerLink]="['/home/qr']">
+      <ion-col class="button-wrapper">
+        <ion-button expand="block" size="large">
+          QR
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row [routerLink]="['/home/nfc']">
+      <ion-col class="button-wrapper">
+        <ion-button expand="block" size="large">
+          NFC
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row [routerLink]="optionValue !== '' ? ['/home/qr'] : null">
+      <ion-col class="button-wrapper">
+        <ion-button expand="block" size="large" [ngClass]="{'disabled-button': optionValue === ''}">
+          QR
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row [routerLink]="optionValue !== '' ? ['/home/nfc'] : null">
+      <ion-col class="button-wrapper">
+        <ion-button expand="block" size="large" [ngClass]="{'disabled-button': optionValue === ''}">
+          NFC
+        </ion-button>
+      </ion-col>
+    </ion-row> -->
+
+  </ion-grid>
+</ion-content>

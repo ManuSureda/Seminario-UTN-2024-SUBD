@@ -1,0 +1,339 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+    <ion-title class="ion-text-center"> SUBD </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="6" size-lg="4">
+        <div class="ion-text-center ion-margin-top small-text">
+          <p>
+            Ya estás registrado?
+            <a [routerLink]="['/login/sign-in']" class="custom-link"
+              >Iniciar sesión</a
+            >
+          </p>
+          <p *ngIf="reSendConfirmationCodeFlag == false">
+            <a
+              (click)="activateReSendConfirmationCodeFlag()"
+              class="custom-link"
+              >Reenviar código de confirmación</a
+            >
+          </p>
+          <p *ngIf="sendConfirmationCodeFlag == false">
+            Ya tiene un código?
+            <a (click)="activateConfirmationCodeFlag()" class="custom-link"
+              >Confirmar cuenta</a
+            >
+          </p>
+        </div>
+        <div class="separator"></div>
+        <!-- successMessage -->
+        <div *ngIf="successMessage != ''" class="alert alert-success" role="alert">
+          {{successMessage}}
+        </div>
+        <!-- errorMessage -->
+        <div *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
+          {{errorMessage}}
+        </div>
+        <!-- formulario de registro -->
+        <div *ngIf="signupFlag == true">
+          <div class="ion-text-center ion-margin-top">
+            <h2>Formulario de registro:</h2>
+          </div>
+
+          <form [formGroup]="signupForm" (ngSubmit)="signup()">
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input
+                formControlName="userEmail"
+                type="email"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input
+                formControlName="password"
+                type="password"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">DNI</ion-label>
+              <ion-input
+                formControlName="dni"
+                type="text"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Nombre</ion-label>
+              <ion-input
+                formControlName="name"
+                type="text"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Apellido</ion-label>
+              <ion-input
+                formControlName="lastName"
+                type="text"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Contacto de emergencia</ion-label>
+              <ion-input
+                formControlName="emergencyContact"
+                type="text"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Provincia</ion-label>
+              <!-- <ion-select formControlName="province" placeholder="Seleccione una"> -->
+              <ion-select
+                (ionChange)="onProvinceChange($event)"
+                placeholder="Seleccione una"
+              >
+                <ion-select-option
+                  *ngFor="let province of provinces"
+                  [value]="province.nombre"
+                >
+                  {{ province.nombre }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Municipio</ion-label>
+              <!-- <ion-select formControlName="city" placeholder="Seleccione una"> -->
+              <ion-select
+                placeholder="Seleccione una"
+                (ionChange)="onMunicipalityChange($event)"
+              >
+                <ion-select-option
+                  *ngFor="let municipality of municipalities"
+                  [value]="municipality.nombre"
+                >
+                  {{ municipality.nombre }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Ciudad</ion-label>
+              <!-- <ion-select formControlName="city" placeholder="Seleccione una"> -->
+              <ion-select 
+                (ionChange)="onCityChange($event)"
+                placeholder="Seleccione una"
+                >
+                <ion-select-option *ngFor="let city of cities" [value]="city.nombre">
+                  {{ city.nombre }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Código Postal</ion-label>
+              <ion-input
+                formControlName="postalCode"
+                type="text"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Obra social</ion-label>
+              <ion-input
+                formControlName="healthInsurance"
+                type="text"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Plan de la obra social</ion-label>
+              <ion-input
+                formControlName="insurancePlan"
+                type="text"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-button
+              expand="block"
+              type="submit"
+              class="ion-margin-top custom-button"
+              [disabled]="signupForm.invalid"
+              >Registrarse</ion-button
+            >
+          </form>
+
+          <!-- validators del signup form -->
+          <div *ngIf="userEmail?.invalid && (userEmail?.dirty || userEmail?.touched)">
+            <div *ngIf="userEmail?.errors?.['required']" class="alert alert-danger" role="alert">
+              Email: requerido.
+            </div>
+            <div *ngIf="userEmail?.errors?.['email']" class="alert alert-danger" role="alert">
+              Email: formato invalido.
+            </div>
+          </div>
+          <div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+            <div *ngIf="password?.errors?.['required']" class="alert alert-danger" role="alert">
+              Contraseña: requerido.
+            </div>
+            <div *ngIf="password?.errors?.['minLength']" class="alert alert-danger" role="alert">
+              Contraseña: minimo 6 caracteres.
+            </div>
+          </div>
+          <div *ngIf="dni?.invalid && (dni?.dirty || dni?.touched)">
+            <div *ngIf="dni?.errors?.['required']" class="alert alert-danger" role="alert">
+              DNI: requerido.
+            </div>
+            <div *ngIf="dni?.errors?.['minLength']" class="alert alert-danger" role="alert">
+              DNI: deben ser 8 caracteres exactamente.
+            </div>
+            <div *ngIf="dni?.errors?.['maxLength']" class="alert alert-danger" role="alert">
+              DNI: deben ser 8 caracteres exactamente.
+            </div>
+            <div *ngIf="dni?.errors?.['pattern']" class="alert alert-danger" role="alert">
+              DNI: solo numeros.
+            </div>
+          </div>
+          <div *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+            <div *ngIf="name?.errors?.['required']" class="alert alert-danger" role="alert">
+              Nombre: requerido.
+            </div>
+          </div>
+          <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
+            <div *ngIf="lastName?.errors?.['required']" class="alert alert-danger" role="alert">
+              Apellido: requerido.
+            </div>
+          </div>
+          <div *ngIf="province?.invalid && (province?.dirty || province?.touched)">
+            <div *ngIf="province?.errors?.['required']" class="alert alert-danger" role="alert">
+              Provincia: requerido.
+            </div>
+          </div>
+          <div *ngIf="municipality?.invalid && (municipality?.dirty || municipality?.touched)">
+            <div *ngIf="municipality?.errors?.['required']" class="alert alert-danger" role="alert">
+              Municipio: requerido.
+            </div>
+          </div>
+          <div *ngIf="city?.invalid && (city?.dirty || city?.touched)">
+            <div *ngIf="city?.errors?.['required']" class="alert alert-danger" role="alert">
+              Ciudad: requerido.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- formulario re-send-confirmation-code -->
+        <div *ngIf="reSendConfirmationCodeFlag == true">
+          <div class="ion-text-center ion-margin-top">
+            <h2>Reenviar código de confirmación:</h2>
+          </div>
+          <form
+            [formGroup]="reSendConfirmationCodeForm"
+            (ngSubmit)="reSendConfirmationCode()"
+          >
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input
+                formControlName="rs_userEmail"
+                type="email"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-button
+              expand="block"
+              type="submit"
+              class="ion-margin-top custom-button"
+              >Reenviar</ion-button
+            >
+            <ion-button
+              (click)="activateSignupFlag()"
+              expand="block"
+              type="button"
+              class="ion-margin-top custom-button"
+              [disabled]="reSendConfirmationCodeForm.invalid"
+              >Cancelar</ion-button
+            >
+          </form>
+          <!-- validators del reSendConfirmationCode form -->
+          <div *ngIf="rs_userEmail?.invalid && (rs_userEmail?.dirty || rs_userEmail?.touched)">
+            <div *ngIf="rs_userEmail?.errors?.['required']" class="alert alert-danger" role="alert">
+              Email: requerido.
+            </div>
+            <div *ngIf="rs_userEmail?.errors?.['email']" class="alert alert-danger" role="alert">
+              Email: formato invalido.
+            </div>
+          </div>
+        </div>
+
+        <!-- formulario confirmar cuenta -->
+        <div *ngIf="sendConfirmationCodeFlag == true">
+          <div class="ion-text-center ion-margin-top">
+            <h2>Confirmar cuenta:</h2>
+          </div>
+          <form
+            [formGroup]="confirmationCodeForm"
+            (ngSubmit)="sendConfirmationCode()"
+          >
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input
+                formControlName="cc_userEmail"
+                type="email"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Código de confirmación</ion-label>
+              <ion-input
+                formControlName="confirmationCode"
+                type="text"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-button
+              expand="block"
+              type="submit"
+              class="ion-margin-top custom-button"
+              [disabled]="confirmationCodeForm.invalid"
+              >Enviar</ion-button
+            >
+            <ion-button
+              (click)="activateSignupFlag()"
+              expand="block"
+              type="button"
+              class="ion-margin-top custom-button"
+              >Cancelar</ion-button
+            >
+          </form>
+          <!-- validators del confirmationCodeForm -->
+          <div *ngIf="cc_userEmail?.invalid && (cc_userEmail?.dirty || cc_userEmail?.touched)">
+            <div *ngIf="cc_userEmail?.errors?.['required']" class="alert alert-danger" role="alert">
+              Email: requerido.
+            </div>
+            <div *ngIf="rs_userEmail?.errors?.['email']" class="alert alert-danger" role="alert">
+              Email: formato invalido.
+            </div>
+          </div>
+          <div *ngIf="confirmationCode?.invalid && (confirmationCode?.dirty || confirmationCode?.touched)">
+            <div *ngIf="confirmationCode?.errors?.['required']" class="alert alert-danger" role="alert">
+              Codigo: requerido.
+            </div>
+            <div *ngIf="confirmationCode?.errors?.['minLength']" class="alert alert-danger" role="alert">
+              Codigo: deben ser solo 6 caracteres.
+            </div>
+            <div *ngIf="confirmationCode?.errors?.['maxLength']" class="alert alert-danger" role="alert">
+              Codigo: deben ser solo 6 caracteres.
+            </div>
+          </div>
+        </div>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

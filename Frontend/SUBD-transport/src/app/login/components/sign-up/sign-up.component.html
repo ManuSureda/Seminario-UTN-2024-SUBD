@@ -1,0 +1,222 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+    <ion-title class="ion-text-center"> SUBD </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="6" size-lg="4">
+        <div class="ion-text-center ion-margin-top small-text">
+          <p>
+            Ya estás registrado?
+            <a [routerLink]="['/login/sign-in']" class="custom-link"
+              >Iniciar sesión</a
+            >
+          </p>
+          <p *ngIf="reSendConfirmationCodeFlag == false">
+            <a
+              (click)="activateReSendConfirmationCodeFlag()"
+              class="custom-link"
+              >Reenviar código de confirmación</a
+            >
+          </p>
+          <p *ngIf="sendConfirmationCodeFlag == false">
+            Ya tiene un código?
+            <a (click)="activateConfirmationCodeFlag()" class="custom-link"
+              >Confirmar cuenta</a
+            >
+          </p>
+        </div>
+        <div class="separator"></div>
+        <!-- successMessage -->
+        <div *ngIf="successMessage != ''" class="alert alert-success" role="alert">
+          {{successMessage}}
+        </div>
+        <!-- errorMessage -->
+        <div *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
+          {{errorMessage}}
+        </div>
+        <!-- formulario de registro -->
+        <div *ngIf="signupFlag == true">
+          <div class="ion-text-center ion-margin-top">
+            <h2>Formulario de registro:</h2>
+          </div>
+
+          <form [formGroup]="signupForm" (ngSubmit)="signup()">
+            <ion-item>
+              <ion-label position="floating">Email de la empresa</ion-label>
+              <ion-input
+                formControlName="transportEmail"
+                type="email"
+                placeholder="ejemplo@ejemplo.com"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Patente</ion-label>
+              <ion-input
+                formControlName="licensePlate"
+                type="text"
+                placeholder="AAA-000"
+              ></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label position="floating">Linea</ion-label>
+              <ion-input
+                formControlName="routeNumber"
+                type="text"
+                placeholder="555"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input
+                formControlName="password"
+                type="password"
+                placeholder="******"
+              ></ion-input>
+            </ion-item>
+
+            <ion-button
+              expand="block"
+              type="submit"
+              class="ion-margin-top custom-button"
+              [disabled]="signupForm.invalid"
+              >Registrarse</ion-button>
+          </form>
+
+          <!-- validators del signup form -->
+          <div *ngIf="transportEmail?.invalid && (transportEmail?.dirty || transportEmail?.touched)">
+            <div *ngIf="transportEmail?.errors?.['required']" class="alert alert-danger" role="alert">
+              Email: requerido.
+            </div>
+            <div *ngIf="transportEmail?.errors?.['email']" class="alert alert-danger" role="alert">
+              Email: formato invalido.
+            </div>
+          </div>
+          <div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+            <div *ngIf="password?.errors?.['required']" class="alert alert-danger" role="alert">
+              Contraseña: requerido.
+            </div>
+            <div *ngIf="password?.errors?.['minLength']" class="alert alert-danger" role="alert">
+              Contraseña: minimo 6 caracteres.
+            </div>
+          </div>
+          <div *ngIf="licensePlate?.invalid && (licensePlate?.dirty || licensePlate?.touched)">
+            <div *ngIf="licensePlate?.errors?.['required']" class="alert alert-danger" role="alert">
+              Patente: requerido.
+            </div>
+          </div>
+          <div *ngIf="routeNumber?.invalid && (routeNumber?.dirty || routeNumber?.touched)">
+            <div *ngIf="routeNumber?.errors?.['required']" class="alert alert-danger" role="alert">
+              Linea: requerido.
+            </div>
+          </div>
+        </div>
+
+        <!-- formulario re-send-confirmation-code -->
+        <div *ngIf="reSendConfirmationCodeFlag == true">
+          <div class="ion-text-center ion-margin-top">
+            <h2>Reenviar código de confirmación:</h2>
+          </div>
+          <form
+            [formGroup]="reSendConfirmationCodeForm"
+            (ngSubmit)="reSendConfirmationCode()"
+          >
+            <ion-item>
+              <ion-label position="floating">Patente</ion-label>
+              <ion-input
+                formControlName="rs_licensePlate"
+                type="text"
+              ></ion-input>
+            </ion-item>
+            <ion-button
+              expand="block"
+              type="submit"
+              class="ion-margin-top custom-button"
+              >Reenviar</ion-button
+            >
+            <ion-button
+              (click)="activateSignupFlag()"
+              expand="block"
+              type="button"
+              class="ion-margin-top custom-button"
+              [disabled]="reSendConfirmationCodeForm.invalid"
+              >Cancelar</ion-button
+            >
+          </form>
+          <!-- validators del reSendConfirmationCode form -->
+          <div *ngIf="rs_licensePlate?.invalid && (rs_licensePlate?.dirty || rs_licensePlate?.touched)">
+            <div *ngIf="rs_licensePlate?.errors?.['required']" class="alert alert-danger" role="alert">
+              Patente: requerido.
+            </div>
+          </div>
+        </div>
+
+        <!-- formulario confirmar cuenta -->
+        <div *ngIf="sendConfirmationCodeFlag == true">
+          <div class="ion-text-center ion-margin-top">
+            <h2>Confirmar cuenta:</h2>
+          </div>
+          <form
+            [formGroup]="confirmationCodeForm"
+            (ngSubmit)="sendConfirmationCode()"
+          >
+            <ion-item>
+              <ion-label position="floating">Patente</ion-label>
+              <ion-input
+                formControlName="cc_licensePlate"
+                type="text"
+                placeholder="AAA-000"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Código de confirmación</ion-label>
+              <ion-input
+                formControlName="confirmationCode"
+                type="text"
+                placeholder="123456"
+              ></ion-input>
+            </ion-item>
+            <ion-button
+              expand="block"
+              type="submit"
+              class="ion-margin-top custom-button"
+              [disabled]="confirmationCodeForm.invalid"
+              >Enviar</ion-button
+            >
+            <ion-button
+              (click)="activateSignupFlag()"
+              expand="block"
+              type="button"
+              class="ion-margin-top custom-button"
+              >Cancelar</ion-button
+            >
+          </form>
+          <!-- validators del confirmationCodeForm -->
+          <div *ngIf="cc_licensePlate?.invalid && (cc_licensePlate?.dirty || cc_licensePlate?.touched)">
+            <div *ngIf="cc_licensePlate?.errors?.['required']" class="alert alert-danger" role="alert">
+              Patente: requerido.
+            </div>
+          </div>
+          <div *ngIf="confirmationCode?.invalid && (confirmationCode?.dirty || confirmationCode?.touched)">
+            <div *ngIf="confirmationCode?.errors?.['required']" class="alert alert-danger" role="alert">
+              Codigo: requerido.
+            </div>
+            <div *ngIf="confirmationCode?.errors?.['minLength']" class="alert alert-danger" role="alert">
+              Codigo: deben ser solo 6 caracteres.
+            </div>
+            <div *ngIf="confirmationCode?.errors?.['maxLength']" class="alert alert-danger" role="alert">
+              Codigo: deben ser solo 6 caracteres.
+            </div>
+          </div>
+        </div>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

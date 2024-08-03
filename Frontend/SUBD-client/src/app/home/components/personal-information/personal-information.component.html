@@ -1,0 +1,116 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-grid style="background-color: rgb(78, 172, 253);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2" [routerLink]="['/home']">
+          <img src="./assets/images/backArrow.png" class="icon">
+        </ion-col>
+        <ion-col size="10">
+          <ion-title class="ion-text-left bold-text">Información personal</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <div class="header-image-wrapper">
+    <img src="./assets/images/blueImg.png" class="header-image">
+    <div class="header-text">UTN SUBD</div>
+    <div class="header-bottom-text">
+      <!-- borraaaaaaaaaaaaaaaaaaaaar -->
+      <div class="left-text" *ngIf="user === null">
+        <p class="highlighted-text">error.com</p>
+      </div>
+      <div class="right-text" *ngIf="user === null">
+        <p class="highlighted-text">$error.15</p>
+      </div>
+      <div class="left-text" *ngIf="user != null">
+        <p class="highlighted-text">{{ user.userEmail }}</p>
+      </div>
+      <div class="right-text" *ngIf="user != null">
+        <p class="highlighted-text">${{ user.balance }}</p>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+
+  <!-- <ion-col class="button-wrapper"> -->
+    <ion-button expand="block" size="medium"
+      (click)="refreshUserData()">
+      Actualizar
+    </ion-button>
+  <!-- </ion-col> -->
+
+  <!-- BORRAR -->
+  <div *ngIf="user != null">
+
+  
+    <ion-grid>
+      <ion-row class="special-ion-row">
+        <ion-col size="6">
+          <p class="bold-text larger-text">Nombre:</p>
+          <p class="small-text">{{ user.name }}</p>
+        </ion-col>
+        <ion-col size="6">
+          <p class="bold-text larger-text">Apellido:</p>
+          <p class="small-text">{{ user.lastName }}</p>
+        </ion-col>
+      </ion-row>
+      <div class="separator"></div>
+
+      <ion-row class="special-ion-row">
+        <ion-col>
+          <p class="bold-text larger-text">Contacto de emergencia:</p>
+          <p class="small-text">{{ user.emergencyContact }}</p>
+          <p class="bold-text larger-text">Obra social:</p>
+          <p class="small-text">{{ user.healthInsurance }}</p>
+          <p class="bold-text larger-text">Plan:</p>
+          <p class="small-text">{{ user.insurancePlan }}</p>
+        </ion-col>
+      </ion-row>
+      <div class="separator"></div>
+
+      <ion-row class="special-ion-row">
+        <ion-col size="12">
+          <p class="bold-text larger-text">Provincia:</p>
+          <p class="small-text">{{ user.province }}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="special-ion-row">
+        <ion-col size="12">
+          <p class="bold-text larger-text">Municipio:</p>
+          <p class="small-text">{{ user.municipality }}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="special-ion-row">
+        <ion-col size="12">
+          <p class="bold-text larger-text">Ciudad:</p>
+          <p class="small-text">{{ user.city }}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="special-ion-row">
+        <ion-col size="12">
+          <p class="bold-text larger-text">ZIP:</p>
+          <p class="small-text">{{ user.postalCode }}</p>
+        </ion-col>
+      </ion-row>
+      <div class="separator"></div>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid style="background-color: rgb(201, 230, 255);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2" [routerLink]="['/home']">
+          <img src="./assets/images/backArrow.png" class="icon">
+        </ion-col>
+        <ion-col size="10" [routerLink]="['/home/get-out']">
+          <p class="bold-text">Bajar</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

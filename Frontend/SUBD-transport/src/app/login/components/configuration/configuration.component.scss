@@ -1,0 +1,92 @@
+.custom-toolbar-1 {
+    height: 25vh; /* 1/4 de la pantalla */
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+  
+  .header-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .header-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 4rem;
+    font-weight: bold;
+    z-index: 1;
+  }
+  
+  .alert {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+  
+  .alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+  }
+  
+  .bold-text {
+    font-weight: bold;
+  }
+  
+  .small-text {
+    margin-top: -5px; /* Ajuste para acercar el texto al título */
+  }
+
+  ion-header {
+    --background: rgb(0, 136, 255); // Azul claro
+  }
+  
+  .custom-toolbar {
+    --background: rgb(0, 136, 255); // Azul claro
+  }
+  
+  ion-title {
+    color: #000; // Negro
+    font-weight: bold; // Texto más grueso
+  }
+  
+  .custom-link {
+    color: rgb(0, 136, 255); // Azul claro
+    text-decoration: none;
+  }
+  
+  .custom-link:hover {
+    text-decoration: underline;
+  }
+  
+  .custom-button {
+    --background: rgb(135, 199, 255); // Azul más claro
+    --background-activated: rgb(115, 179, 235); // Azul oscuro al hacer clic
+    --background-focused: rgb(145, 209, 255); // Azul claro al enfocar
+    --background-hover: rgb(125, 189, 245); // Azul claro al pasar el mouse
+  }
+
+  .separator {
+    height: 1px;
+    background-color: gray;
+    margin: 5px 0; /* Reducir el margen para disminuir el espacio */
+  }
+  

@@ -1,0 +1,111 @@
+<ion-header >
+  <!-- <ion-toolbar>
+    <ion-grid style="background-color: rgb(78, 172, 253);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2" [routerLink]="['/home']">
+          <img src="./assets/images/backArrow.png" class="icon">
+        </ion-col>
+        <ion-col size="10">
+          <ion-title class="ion-text-left bold-text">Información personal</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar> -->
+
+  <div class="header-image-wrapper">
+    <img src="./assets/images/blueImg.png" class="header-image">
+    <div class="header-text">UTN SUBD</div>
+    <div class="header-bottom-text">
+      <!-- borraaaaaaaaaaaaaaaaaaaaar -->
+      <div class="left-text" *ngIf="user === null">
+        <p class="highlighted-text">error.com</p>
+      </div>
+      <div class="left-text" *ngIf="user != null">
+        <p class="highlighted-text">{{ user.userEmail }}</p>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <ion-grid>
+    <!-- Section for image and text pairs -->
+    <ion-row [routerLink]="['/home/personal-information']" class="ion-align-items-center">
+      <ion-col size="2">
+        <img src="./assets/images/profile.png" class="icon">
+      </ion-col>
+      <ion-col size="10">
+        <p class="bold-text">Informacion personal</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row [routerLink]="['/home/balance-management']" class="ion-align-items-center">
+      <ion-col size="2">
+        <img src="./assets/images/bank.png" class="icon">
+      </ion-col>
+      <ion-col size="7">
+        <p class="bold-text">Gestionar saldo</p>
+      </ion-col>
+      <ion-col size="3" class="balance-box" *ngIf="user === null">
+        <p>$00.00</p>
+      </ion-col>
+      <ion-col size="3" class="balance-box" *ngIf="user != null">
+        <p>${{ user.balance }}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row [routerLink]="['/home/qr']" class="ion-align-items-center">
+      <ion-col size="2">
+        <img src="./assets/images/phoneQR.png" class="icon">
+      </ion-col>
+      <ion-col size="10">
+        <p class="bold-text">Pagar boleto - QR</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row [routerLink]="['/home/nfc']" class="ion-align-items-center">
+      <ion-col size="2">
+        <img src="./assets/images/nfc.png" class="icon">
+      </ion-col>
+      <ion-col size="10">
+        <p class="bold-text">Pagar boleto - NFC</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row [routerLink]="['/home/history']" class="ion-align-items-center">
+      <ion-col size="2">
+        <img src="./assets/images/stickmanToRight.png" class="icon">
+      </ion-col>
+      <ion-col size="10">
+        <p class="bold-text">Historial</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center" (click)="signOut()">
+      <ion-col size="2">
+        <img src="./assets/images/logOut.png" class="icon">
+      </ion-col>
+      <ion-col size="10">
+        <p class="bold-text">Cerrar sesion</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid style="background-color: rgb(201, 230, 255);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2">
+          <img src="./assets/images/stickmanToLeft.png" class="icon">
+        </ion-col>
+        <ion-col size="10" [routerLink]="['/home/get-out']">
+          <p class="bold-text">Bajar</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
+

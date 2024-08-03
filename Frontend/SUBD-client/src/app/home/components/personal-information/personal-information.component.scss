@@ -1,0 +1,88 @@
+.special-ion-row {
+    margin-top: -8px;
+    margin-bottom: -8px;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.larger-text {
+  font-size: 1.2rem; /* Tamaño del texto en negrita */
+}
+
+.small-text {
+  margin-top: -5px; /* Ajuste para acercar el texto al título */
+}
+  
+.separator {
+  height: 1px;
+  background-color: gray;
+  margin: 5px 0; /* Reducir el margen para disminuir el espacio */
+}
+
+.highlighted-text {
+    background-color: rgb(135, 199, 255); /* Color de fondo específico */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px; /* Espaciado interno para que el texto no toque los bordes */
+    color: #000; /* Color del texto */
+    display: inline-block; /* Asegura que el fondo no se extienda más allá del contenido */
+    z-index: 1;
+}
+
+.icon {
+    width: 60%;
+    max-width: 40px; /* Ajustar según sea necesario */
+    height: auto;
+  }
+  
+  .header-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 25vh; /* 1/4 de la pantalla */
+    overflow: hidden;
+    margin-top: 0; /* Asegura que esté pegado al header */
+  }
+  
+  .header-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Para asegurarse de que esté detrás del texto */
+  }
+  
+  .header-text {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
+    font-size: 4rem; /* Tamaño del texto principal */
+    font-weight: bold;
+    white-space: nowrap; /* Para mantener en una sola línea */
+    z-index: 1;
+  }
+  
+  .header-bottom-text {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: black;
+  }
+  
+  .left-text,
+  .right-text {
+    font-weight: bold;
+    font-size: 1.1rem; /* Tamaño del texto secundario */
+  }
+  
+  ion-footer .ion-toolbar {
+    background-color: rgb(135, 199, 255) !important;
+  }
+  

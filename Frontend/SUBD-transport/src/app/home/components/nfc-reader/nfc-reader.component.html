@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar-1">
+    <div class="header-image-wrapper">
+      <img src="./assets/images/blueImg.png" class="header-image">
+      <div class="header-text">UTN SUBD</div>
+      <div *ngIf="nfcIsEnabled"
+        class="sub-header-text">Acerque su telefono</div>
+    </div>
+  </ion-toolbar>
+  <div *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage != ''" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+  <p *ngIf="debugMsg != ''" class="alert alert-warning" role="alert">
+    {{ debugMsg }}
+  </p>
+  <!-- <ion-button (click)="simulateGetOut()">test: getOut</ion-button>
+  <ion-button (click)="simulateGetIn()">test: getIn</ion-button> -->
+</ion-header>

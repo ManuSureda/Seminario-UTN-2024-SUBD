@@ -1,0 +1,7 @@
+{
+  "name": "SUBD-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

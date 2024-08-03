@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-grid style="background-color: rgb(78, 172, 253);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2" [routerLink]="['/home']">
+          <img src="./assets/images/backArrow.png" class="icon">
+        </ion-col>
+        <ion-col size="10">
+          <ion-title class="ion-text-left bold-text">Gestión de saldo</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <div class="header-image-wrapper">
+    <img src="./assets/images/blueImg.png" class="header-image">
+    <div class="header-text">UTN SUBD</div>
+    <div class="header-bottom-text">
+      <!-- borraaaaaaaaaaaaaaaaaaaaar -->
+      <div class="left-text" *ngIf="user === null">
+        <p class="highlighted-text">error</p>
+      </div>
+      <div class="left-text" *ngIf="user != null">
+        <p class="highlighted-text">{{ user.userEmail }}</p>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" 
+        *ngIf="user === null">
+        <p class="bold-text larger-text">SALDO ACTUAL</p>
+        <p class="bold-text">$error</p>
+      </ion-col>
+      <ion-col size="12" 
+        *ngIf="user != null">
+        <p class="bold-text larger-text">SALDO ACTUAL</p>
+        <p class="bold-text">${{ user.balance }}</p>
+      </ion-col>
+    </ion-row>
+    <div class="separator"></div>
+    <!-- successMessage -->
+    <div *ngIf="successMessage != ''" class="alert alert-success" role="alert" 
+          (click)="copyToClipboard()" >
+          Copiar link de Pago
+    </div>
+    <!-- errorMessage -->
+    <div *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
+      {{errorMessage}}
+    </div>
+
+    <ion-row>
+      <form
+        [formGroup]="sendForm"
+        (ngSubmit)="onSubmit()"
+        >
+        <ion-col size="12">
+          <p class="bold-text">Recargar con Mercado Pago</p>
+          <p class="bold-text">Monto:</p>
+          <ion-input 
+            formControlName="amount"
+            placeholder="ej: $1500" class="input-field"></ion-input>
+          <ion-button 
+            type="submit"
+            expand="full" 
+            class="submit-button"
+            [disabled]="sendForm.invalid"
+            >Enviar</ion-button>
+        </ion-col>
+      </form>
+      <!-- validators del signup form -->
+      <div *ngIf="amount?.invalid && (amount?.dirty || amount?.touched)">
+        <div *ngIf="amount?.errors?.['required']" class="alert alert-danger" role="alert">
+          Monto: requerido.
+        </div>
+        <div *ngIf="amount?.errors?.['min']" class="alert alert-danger" role="alert">
+          Monto: minimo 0.01.
+        </div>
+        <div *ngIf="amount?.errors?.['pattern']" class="alert alert-danger" role="alert">
+          Monto: solo se aceptan numeros
+        </div>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid style="background-color: rgb(201, 230, 255);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2" [routerLink]="['/home']">
+          <img src="./assets/images/backArrow.png" class="icon">
+        </ion-col>
+        <ion-col size="10" [routerLink]="['/home/get-out']">
+          <p class="bold-text">Bajar</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

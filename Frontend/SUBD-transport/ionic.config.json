@@ -1,0 +1,7 @@
+{
+  "name": "SUBD-transport",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,177 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-grid style="background-color: rgb(78, 172, 253);">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2" [routerLink]="['/home']">
+          <img src="./assets/images/backArrow.png" class="icon">
+        </ion-col>
+        <ion-col size="10">
+          <ion-title class="ion-text-left bold-text">Bajar</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <div class="header-image-wrapper">
+    <img src="./assets/images/blueImg.png" class="header-image">
+    <div class="header-text">UTN SUBD</div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
+    {{errorMessage}}
+  </div>
+
+  <ion-grid *ngIf="isQr == false && isNfc == false">
+    <ion-row>
+      <ion-col size="12" style="text-align: center">
+        <h1>Elija el método</h1>
+      </ion-col>
+    </ion-row>
+
+    <div class="separator"></div>
+
+    <ion-row >
+      <ion-col class="button-wrapper">
+        <ion-button (click)="useQr()" expand="block" size="large">
+          QR
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row >
+      <ion-col class="button-wrapper">
+        <ion-button (click)="useNfc()" expand="block" size="large">
+          NFC
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-grid *ngIf="isQr == true">
+    <ion-row>
+      <ion-col size="12">
+        <p class="bold-text larger-text">Presente el QR al lector</p>
+      </ion-col>
+    </ion-row>
+    <div class="separator"></div>
+    <ion-row>
+      <ion-col size="12" class="qr-center">
+        <!-- <img src="./assets/images/qr.png" class="qr-image"> -->
+        <qrcode *ngIf="qrFlag == true" 
+          [qrdata]="qrDataString"
+          [width]="400"
+          [allowEmptyString]="true"
+          [errorCorrectionLevel]="'M'"
+          [colorDark]="'#000000ff'"
+          [colorLight]="'#ffffffff'"
+          ></qrcode>
+      </ion-col>
+    </ion-row>
+    <div class="separator"></div>
+    <!-- <ion-row class="ion-align-items-center">
+      <ion-col size="9">
+        <p class="bold-text">¿Invitar a alguien?</p>
+      </ion-col>
+      <ion-col size="3">
+        <ion-toggle (ionChange)="onToggleChange($event)"></ion-toggle>
+      </ion-col>
+    </ion-row> -->
+
+
+    <!-- qr para invitado -->
+    <!-- <form 
+      *ngIf="toggleValue === true"
+      [formGroup]="qrGuestForm"
+      (ngSubmit)="generateQRForGuest()"
+      >
+      <ion-row>
+        <ion-col size="12">
+          <ion-label position="floating">Dni del invitado</ion-label>
+            <ion-input 
+              formControlName="guestDni"
+              type="text"
+              placeholder="DNI: 10000000" 
+              class="input-field"
+              ></ion-input>
+          
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-label position="floating">Email del invitado</ion-label>
+            <ion-input 
+              formControlName="guestEmail"
+              type="email"
+              placeholder="Email: correo@hotmail.com" 
+              class="input-field"
+              ></ion-input>
+          
+        </ion-col>
+      </ion-row>      
+      <ion-row>
+        <ion-col size="12">
+          <ion-button 
+            type="submit"
+            expand="full" 
+            class="submit-button"
+            [disabled]="qrGuestForm.invalid"
+            >QR de pago para invitado</ion-button>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="guestEmail?.invalid && (guestEmail?.touched || guestEmail?.dirty)">
+        <div *ngIf="guestEmail?.errors?.['email']" class="alert alert-danger" role="alert">
+          Email: formato invalido (ejemplo&#64;gmail.com).
+        </div>
+      </div>
+      <div *ngIf="guestDni?.invalid && (guestDni?.touched || guestDni?.dirty)">
+        <div *ngIf="guestDni?.errors?.['required']" class="alert alert-danger" role="alert">
+          DNI: requerido.
+        </div>
+        <div *ngIf="guestDni?.errors?.['minLength'] || guestDni?.errors?.['maxLength']" class="alert alert-danger" role="alert">
+          DNI: solo 8 caracteres ej: (10000000).
+        </div>
+        <div *ngIf="guestDni?.errors?.['pattern'] " class="alert alert-danger" role="alert">
+          DNI: solo numeros.
+        </div>
+      </div>
+    </form> -->
+
+
+    <!-- qr propio -->
+    <ion-row>
+      <ion-col size="12">
+        <ion-button 
+          (click)="useQr()"
+          expand="full" 
+          class="submit-button"
+          >Re cargar QR</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-grid *ngIf="isNfc == true">
+    <ion-row>
+      <ion-col size="12">
+        <p class="bold-text larger-text">Acerque el dispositivo al lector</p>
+      </ion-col>
+    </ion-row>
+    <div class="separator"></div>
+
+    <!-- qr propio -->
+    <ion-row>
+      <ion-col size="12">
+        <ion-button 
+          (click)="useNfc()"
+          expand="full" 
+          class="submit-button"
+          >Re cargar NFC</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+

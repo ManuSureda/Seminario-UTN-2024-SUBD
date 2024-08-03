@@ -1,0 +1,71 @@
+.custom-toolbar-1 {
+    height: 25vh; /* 1/4 de la pantalla */
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .header-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+  
+  .alert {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+
+  .alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+  }
+  
+  .alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+  }
+  
+  .header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .header-text {
+    position: absolute;
+    top: 40%; /* Ajusta esta propiedad para acercar el texto al top */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 3.5rem; /* Tamaño ajustado del texto */
+    font-weight: bold;
+    white-space: nowrap;
+    z-index: 1;
+  }
+  
+  .sub-header-text {
+    position: absolute;
+    white-space: nowrap;
+    top: 80%; /* Ajusta esta propiedad para posicionar el nuevo texto */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-weight: 500;
+    font-size: 1.1rem; /* Tamaño normal del texto */
+    background-color: rgb(135, 199, 255); /* Color de fondo */
+    padding: 0.5rem; /* Espaciado alrededor del texto */
+    border-radius: 5px; /* Opcional: redondear esquinas */
+    z-index: 1;
+  }
+  

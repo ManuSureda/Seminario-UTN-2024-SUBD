@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+    <ion-title class="ion-text-center"> SUBD-Transport </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid style="margin-top: -15px;">
+
+    <ion-button
+      expand="block"
+      type="button"
+      class="ion-margin-top custom-button"
+      [routerLink]="['/home']"
+      >Siguiente</ion-button>
+    <ion-button
+      expand="block"
+      type="button"
+      class="ion-margin-top custom-button"
+      (click)="refreshTransport()"
+      >Actualizar</ion-button>
+
+    <ion-row class="ion-align-items-center">
+      <ion-col size="9">
+        <h2 class="bold-text" style="margin-top: -0px;">Transporte:</h2>
+      </ion-col>
+      <ion-col size="3">
+        <ion-toggle [checked]="true" (ionChange)="onToggleChange($event)"></ion-toggle>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+  </ion-grid>
+
+  <ion-grid *ngIf="dataFlag && transport != null">
+    <ion-row class="special-ion-row">
+      <ion-col>
+        <p class="bold-text larger-text">Email:</p>
+        <p class="small-text">{{ transport.transportEmail }}</p>
+        <p class="bold-text larger-text">Patente:</p>
+        <p class="small-text">{{ transport.licensePlate }}</p>
+        <p class="bold-text larger-text">Linea:</p>
+        <p class="small-text">{{ transport.routeNumber }}</p>
+        <p class="bold-text larger-text">Secciones: nombre | precio</p>
+        <ion-list style="margin-top: -20px;" *ngFor="let option of transport.routeOptions">
+          <ion-item>
+            <p style="margin-bottom: -10px;" 
+               class="small-text"
+               >- {{ option.name }} | ${{ option.cost }}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <div class="separator"></div> -->
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="6" size-lg="4">
+        
+        <div class="separator"></div>
+        <div class="ion-text-center ion-margin-top bold-text">
+          <p>
+            cambiar de cuenta?
+            <a [routerLink]="['/login/sign-in']" class="custom-link"
+              >Iniciar sesión</a
+            >
+          </p>
+        </div>
+        <div class="separator"></div>
+        <!-- successMessage -->
+        <div *ngIf="successMessage != ''" class="alert alert-success" role="alert">
+          {{successMessage}}
+        </div>
+        <!-- errorMessage -->
+        <div *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
+          {{errorMessage}}
+        </div>
+        <!-- formulario de modificaciones -->
+        <div>
+          <div class="ion-text-center ion-margin-top">
+            <h2>Formulario para modificaciones:</h2>
+            <p>Si no desea modificar nada, simplemente de a siguiente</p>
+          </div>
+
+          <form [formGroup]="updateForm" (ngSubmit)="updateTransport()">
+         
+            <ion-item>
+              <ion-label position="floating">Linea</ion-label>
+              <ion-input
+                formControlName="u_routeNumber"
+                type="text"
+                placeholder="555"
+              ></ion-input>
+            </ion-item>
+
+            <ion-button
+              expand="block"
+              type="submit"
+              class="ion-margin-top custom-button"
+              [disabled]="updateForm.invalid"
+              >Modificar linea</ion-button>
+          </form>
+
+          <div class="separator"></div>
+
+          <!-- validators del signup form -->
+          <div *ngIf="u_routeNumber?.invalid && (u_routeNumber?.dirty || u_routeNumber?.touched)">
+            <div *ngIf="u_routeNumber?.errors?.['pattern']" class="alert alert-danger" role="alert">
+              Linea: solo 3 numeros, + 1 letra opcional.
+            </div>
+            <div *ngIf="u_routeNumber?.errors?.['required']" class="alert alert-danger" role="alert">
+              Linea: es un requisito.
+            </div>
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,57 @@
+.alert {
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-danger {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+ion-header {
+  --background: rgb(0, 136, 255); // Azul claro
+}
+
+.custom-toolbar {
+  --background: rgb(0, 136, 255); // Azul claro
+}
+
+ion-title {
+  color: #000; // Negro
+  font-weight: bold; // Texto más grueso
+}
+
+.small-text p {
+  font-size: 0.9rem; // Tamaño de texto más pequeño
+  margin-bottom: 0.5rem; // Espacio reducido entre los textos
+}
+
+.custom-link {
+  color: rgb(0, 136, 255); // Azul claro
+  text-decoration: none;
+}
+
+.custom-link:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  border-bottom: 1px solid #ccc; // Línea sombreada gris
+  margin: 1rem 0; // Espaciado vertical
+}
+
+.custom-button {
+  --background: rgb(135, 199, 255); // Azul más claro
+  --background-activated: rgb(115, 179, 235); // Azul oscuro al hacer clic
+  --background-focused: rgb(145, 209, 255); // Azul claro al enfocar
+  --background-hover: rgb(125, 189, 245); // Azul claro al pasar el mouse
+}

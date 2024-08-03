@@ -1,0 +1,146 @@
+.icon {
+    width: 60%;
+    max-width: 40px; /* Ajustar según sea necesario */
+    height: auto;
+  }
+
+  .alert {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+  
+  .alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+  }
+  
+  .alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+
+  .required-asterisk {
+    color: red;
+    margin-left: 5px;
+  }
+
+  .custom-button {
+    --background: rgb(135, 199, 255); // Azul más claro
+    --background-activated: rgb(115, 179, 235); // Azul oscuro al hacer clic
+    --background-focused: rgb(145, 209, 255); // Azul claro al enfocar
+    --background-hover: rgb(125, 189, 245); // Azul claro al pasar el mouse
+  }
+
+  .left-text,
+  .right-text {
+    font-weight: bold;
+    font-size: 1.1rem; /* Tamaño del texto secundario */
+  }
+  
+  .header-bottom-text {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: black;
+  }
+
+  .highlighted-text {
+    background-color: rgb(135, 199, 255); /* Color de fondo específico */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px; /* Espaciado interno para que el texto no toque los bordes */
+    color: #000; /* Color del texto */
+    display: inline-block; /* Asegura que el fondo no se extienda más allá del contenido */
+    z-index: 1;
+  }
+  
+  .header-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 25vh; /* 1/4 de la pantalla */
+    overflow: hidden;
+    margin-top: 0; /* Asegura que esté pegado al header */
+  }
+  
+  .header-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Para asegurarse de que esté detrás del texto */
+  }
+  
+  .header-text {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
+    font-size: 4rem; /* Tamaño del texto principal */
+    font-weight: bold;
+    white-space: nowrap; /* Para mantener en una sola línea */
+    z-index: 1;
+  }
+
+  // .header-text {
+  //   position: absolute;
+  //   margin-top: 20%;
+  //   // top: 25%;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   color: black;
+  //   font-size: 3rem; /* Tamaño del texto principal */
+  //   font-weight: bold;
+  //   white-space: nowrap; /* Para mantener en una sola línea */
+  //   z-index: 1;
+  // }
+  
+  .bold-text {
+    font-weight: bold;
+    color: black;
+  }
+  
+  .larger-text {
+    font-size: 1.5rem; /* Tamaño del texto en negrita */
+  }
+  
+  .separator {
+    height: 1px;
+    background-color: gray;
+    margin: 10px 0;
+  }
+  
+  .qr-center {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .qr-image {
+    width: 200px; /* Ajustar el tamaño del QR según sea necesario */
+    height: 200px; /* Ajustar el tamaño del QR según sea necesario */
+  }
+  
+  .input-field {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  .submit-button {
+    margin-top: 20px;
+    background-color: rgb(78, 172, 253); /* Color de fondo del botón */
+  }
+  
+  ion-footer .ion-toolbar {
+    background-color: rgb(135, 199, 255) !important;
+  }
+  
