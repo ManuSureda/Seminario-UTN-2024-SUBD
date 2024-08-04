@@ -68,3 +68,7 @@
   border-radius: 5px; /* Opcional: redondear esquinas */
   z-index: 1;
 }
+
+.transparent-content {
+  --background: transparent;
+}

@@ -135,7 +135,7 @@ class TravelService {
             // console.log("\n\n\n\n\n\n");
             
 
-            if (paymentData.onlinePayment === 'true') {
+            if (paymentData.onlinePayment === true) {
                 // revizo que tenga el saldo suficiente
                 if (user.balance < travelCost) {
                     const error = new Error(`No cuenta con los fondos suficientes para pagar el boleto, costo: ${ travelCost } | fondos: ${ user.balance }`)
@@ -175,11 +175,11 @@ class TravelService {
             console.log(result);
             console.log("-------------------------------------------------");
 
-            console.log("--------------------------------------------------");
-            console.log("----------------------paymentData.onlinePayment----------------------------");
-            console.log(paymentData.onlinePayment);            
-            console.log("--------------------------------------------------");
-            console.log("--------------------------------------------------");
+            // console.log("--------------------------------------------------");
+            // console.log("----------------------paymentData.onlinePayment----------------------------");
+            // console.log(paymentData.onlinePayment);            
+            // console.log("--------------------------------------------------");
+            // console.log("--------------------------------------------------");
             
 
             if (paymentData.onlinePayment === true) {

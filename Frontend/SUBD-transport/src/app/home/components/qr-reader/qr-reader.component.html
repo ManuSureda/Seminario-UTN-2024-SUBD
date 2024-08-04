@@ -6,15 +6,7 @@
       <div class="sub-header-text">Presente su QR al lector</div>
     </div>
   </ion-toolbar>
-  <div *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
-    {{ errorMessage }}
-  </div>
-  <div *ngIf="successMessage != ''" class="alert alert-success" role="alert">
-    {{ successMessage }}
-  </div>
-  <p *ngIf="debugMsg != ''" class="alert alert-warning" role="alert">
-    {{ debugMsg }}
-  </p>
+
   <!-- <ion-button (click)="simulateGetOut()">test: getOut</ion-button>
   <ion-button (click)="simulateGetIn()">test: getIn</ion-button>
   <ion-button (click)="simulateBigGetIn()">test: BigGetIn</ion-button> -->
@@ -23,3 +15,14 @@
     <p>{{ scannedResult }}</p>
   </div> -->
 </ion-header>
+<ion-content *ngIf="errorMessage != '' || successMessage != '' || debugMsg != ''">
+  <p *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </p>
+  <p *ngIf="successMessage != ''" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </p>
+  <p *ngIf="debugMsg != ''" class="alert alert-warning" role="alert">
+    {{ debugMsg }}
+  </p>
+</ion-content>

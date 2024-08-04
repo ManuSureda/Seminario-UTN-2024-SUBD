@@ -297,32 +297,32 @@ export class QrReaderComponent  implements OnInit, OnDestroy {
       });
   
       const result = await Promise.race([scannerPromise, timeOutPromise]);
+      
+      await this.stopScan();
   
       if (result && typeof result === 'object' && 'content' in result) {
         this.scannedResult = result.content;
-        this.debugMsg = 'QR code scanned successfully';
-        this.stopScan(); // Detener el escaneo
+        // this.debugMsg = 'QR code scanned successfully';
 
         await this.processScan(this.scannedResult); // Procesar el escaneo
         this.router.navigate(['/home']);
       } else { // paso el tiempo de ejecuccion y no logramos escanear nada
         this.debugMsg = 'No se detecto nada'
         setTimeout(() => {
-          this.stopScan(); // Detener el escaneo
           this.router.navigate(['/home']);
-        }, 3000)
+        }, 3000);
       }
     } catch (error) {
       console.log("catch startScan");      
       console.log(error);
+
+      this.stopScan();
      
       if (error === 'timeout') {
         this.debugMsg = 'No se detecto ningun QR!';
       } else {
         this.catchErrorMessage(error);
       }
-      this.stopScan();
-      BarcodeScanner.showBackground();
       this.isScanning = false;
       setTimeout(() => {
         this.router.navigate(['/home']);
@@ -400,7 +400,7 @@ export class QrReaderComponent  implements OnInit, OnDestroy {
         setTimeout(() => {
           this.clearMessages();
           this.router.navigate(['/home']);
-        }, 2500);
+        }, 3000);
       } catch (error) {
         console.log(error);        
         // en caso de que el error sea producido por fallo de conexion 
@@ -415,7 +415,7 @@ export class QrReaderComponent  implements OnInit, OnDestroy {
               setTimeout(() => {
                 this.clearMessages();
                 this.router.navigate(['/home']);
-              }, 2500);
+              }, 3000);
             } catch (error) {
               console.log(error);
               throw error;
@@ -469,7 +469,7 @@ export class QrReaderComponent  implements OnInit, OnDestroy {
         setTimeout(() => {
           this.clearMessages();
           this.router.navigate(['/home']);
-        }, 2500);
+        }, 3000);
       } catch (error) {
         console.log(error);        
         // en caso de que el error sea producido por fallo de conexion 
@@ -481,7 +481,7 @@ export class QrReaderComponent  implements OnInit, OnDestroy {
             setTimeout(() => {
               this.clearMessages();
               this.router.navigate(['/home']);
-            }, 2500);
+            }, 3000);
           } catch (error) {
             console.log(error);
             throw error;
@@ -498,7 +498,7 @@ export class QrReaderComponent  implements OnInit, OnDestroy {
   }
 
   stopScan() {
-    this.clearMessages();
+    // this.clearMessages();
     this.isScanning = false;
     BarcodeScanner.showBackground();
     BarcodeScanner.stopScan();
